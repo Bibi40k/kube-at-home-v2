@@ -32,4 +32,8 @@ task ansible:playbook:k3s-install
 printf " * Verifying the nodes are online\n\n"
 kubectl --kubeconfig=./provision/kubeconfig get nodes
 
-printf "\n * k3s completed, proceed to step 5\n\n"
+printf "\n * k3s install completed\n"
+
+# shellcheck disable=SC1091
+source "${PROJECT_DIR}./scripts/go_to_next_step.inc"
+go_to_next_step "5"

@@ -5,4 +5,6 @@ printf "\n * Install pre-commit and the pre-commit hooks.
 
 pre-commit install-hooks
 
-printf "\n * Proceed to step 2\n\n"
+# shellcheck disable=SC1091
+source "${PROJECT_DIR}./scripts/go_to_next_step.inc"
+go_to_next_step "2"

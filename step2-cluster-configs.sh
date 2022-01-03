@@ -21,8 +21,12 @@ sed -i "s/BOOTSTRAP_AGE_PUBLIC_KEY.*/BOOTSTRAP_AGE_PUBLIC_KEY=\"${AGE_PUBLIC_KEY
 
 if ./configure.sh --verify | grep 'ERROR'; then
     printf "\n !!! There are required variables missing in .config.env !!!\n\n"
-    exit
-else
-    ./configure.sh
-    printf "\n * All configurations files were generated, proceed to step 3\n\n"
+    exit 0
 fi
+
+./configure.sh
+printf "\n * All configurations files were generated.\n"
+
+# shellcheck disable=SC1091
+source "${PROJECT_DIR}./scripts/go_to_next_step.inc"
+go_to_next_step "3"
