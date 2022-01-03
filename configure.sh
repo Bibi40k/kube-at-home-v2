@@ -41,7 +41,7 @@ main() {
             > "${PROJECT_DIR}/.sops.yaml"
         # cluster
         envsubst < "${PROJECT_DIR}/tmpl/cluster/cluster-settings.yaml" \
-            > "${PROJECT_DIR}/cluster/base/cluster-settings.yaml"
+            > "${PROJECT_DIR}/cluster/base/cluster-settings.sops.yaml"
         envsubst < "${PROJECT_DIR}/tmpl/cluster/gotk-sync.yaml" \
             > "${PROJECT_DIR}/cluster/base/flux-system/gotk-sync.yaml"
         envsubst < "${PROJECT_DIR}/tmpl/cluster/kube-vip-daemonset.yaml" \
@@ -51,6 +51,7 @@ main() {
         envsubst < "${PROJECT_DIR}/tmpl/cluster/cert-manager-secret.sops.yaml" \
             > "${PROJECT_DIR}/cluster/core/cert-manager/secret.sops.yaml"
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/base/cluster-secrets.sops.yaml"
+        sops --encrypt --in-place "${PROJECT_DIR}/cluster/base/cluster-settings.sops.yaml"
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/core/cert-manager/secret.sops.yaml"
         # terraform
         envsubst < "${PROJECT_DIR}/tmpl/terraform/secret.sops.yaml" \
