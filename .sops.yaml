@@ -3,8 +3,8 @@ creation_rules:
   - path_regex: provision/.*\.sops\.ya?ml
     unencrypted_regex: "^(kind)$"
     age: >-
-      age1gptpefawdagy0w89amqv83uearhdn7je2vs8gf9yydd02hkfupnsckgnkc
+      age18rreg7hg3mjl3xaf5a9xu7cw5xzszks6pf3r8e3lnmtc82jrzgpqsvm769
   - path_regex: cluster/.*\.ya?ml
     encrypted_regex: "^(data|stringData)$"
     age: >-
-      age1gptpefawdagy0w89amqv83uearhdn7je2vs8gf9yydd02hkfupnsckgnkc
+      age18rreg7hg3mjl3xaf5a9xu7cw5xzszks6pf3r8e3lnmtc82jrzgpqsvm769

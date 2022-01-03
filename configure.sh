@@ -40,18 +40,21 @@ main() {
         envsubst < "${PROJECT_DIR}/tmpl/.sops.yaml" \
             > "${PROJECT_DIR}/.sops.yaml"
         # cluster
-        envsubst < "${PROJECT_DIR}/tmpl/cluster/cluster-settings.yaml" \
+        envsubst < "${PROJECT_DIR}/tmpl/cluster/global-secrets.sops.yaml" \
+            > "${PROJECT_DIR}/cluster/base/global-secrets.sops.yaml"
+        sops --encrypt --in-place "${PROJECT_DIR}/cluster/base/global-secrets.sops.yaml"
+        envsubst < "${PROJECT_DIR}/tmpl/cluster/cluster-settings.sops.yaml" \
             > "${PROJECT_DIR}/cluster/base/cluster-settings.sops.yaml"
+        sops --encrypt --in-place "${PROJECT_DIR}/cluster/base/cluster-settings.sops.yaml"
         envsubst < "${PROJECT_DIR}/tmpl/cluster/gotk-sync.yaml" \
             > "${PROJECT_DIR}/cluster/base/flux-system/gotk-sync.yaml"
         envsubst < "${PROJECT_DIR}/tmpl/cluster/kube-vip-daemonset.yaml" \
             > "${PROJECT_DIR}/cluster/core/kube-system/kube-vip/daemon-set.yaml"
         envsubst < "${PROJECT_DIR}/tmpl/cluster/cluster-secrets.sops.yaml" \
             > "${PROJECT_DIR}/cluster/base/cluster-secrets.sops.yaml"
+        sops --encrypt --in-place "${PROJECT_DIR}/cluster/base/cluster-secrets.sops.yaml"
         envsubst < "${PROJECT_DIR}/tmpl/cluster/cert-manager-secret.sops.yaml" \
             > "${PROJECT_DIR}/cluster/core/cert-manager/secret.sops.yaml"
-        sops --encrypt --in-place "${PROJECT_DIR}/cluster/base/cluster-secrets.sops.yaml"
-        sops --encrypt --in-place "${PROJECT_DIR}/cluster/base/cluster-settings.sops.yaml"
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/core/cert-manager/secret.sops.yaml"
         # terraform
         envsubst < "${PROJECT_DIR}/tmpl/terraform/secret.sops.yaml" \
