@@ -27,4 +27,8 @@ task ansible:adhoc:ping
 printf " * Running the Ubuntu Prepare playbook\n\n"
 task ansible:playbook:ubuntu-prepare
 
-printf "\n * Ubuntu Prepare completed, proceed to step 4\n\n"
+printf "\n * Ubuntu Prepare completed."
+
+# shellcheck disable=SC1091
+source "${PROJECT_DIR}./scripts/go_to_next_step.inc"
+go_to_next_step "4"

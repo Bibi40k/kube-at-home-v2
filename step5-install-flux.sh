@@ -104,4 +104,8 @@ fi
 printf "\n * Verify Flux components are running in the cluster\n"
 kubectl --kubeconfig=./provision/kubeconfig get pods -n flux-system
 
-printf "\n * Flux installed, proceed to step 6\n\n"
+printf "\n * Flux installed\n"
+
+# shellcheck disable=SC1091
+source "${PROJECT_DIR}./scripts/go_to_next_step.inc"
+go_to_next_step "6"
