@@ -87,6 +87,7 @@ cat ~/.config/sops/age/keys.txt |
     --from-file=age.agekey=/dev/stdin
 
 printf "\n * Verify cluster secrets defined in *.sops.yaml\n"
+echo ./cluster/base/global-secrets.sops.yaml
 echo ./cluster/base/cluster-secrets.sops.yaml
 echo ./cluster/base/cluster-settings.sops.yaml
 

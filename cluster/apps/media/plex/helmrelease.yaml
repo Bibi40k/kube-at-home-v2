@@ -35,7 +35,7 @@ spec:
       post.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--unfreeze", "/data"]'
 
     env:
-      TZ: "Europe/Bucharest"
+      TZ: ${TIMEZONE}
 
     service:
       main:
@@ -62,7 +62,7 @@ spec:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: tls.plex
+          - secretName: tls-plex
             hosts:
               - plex.${PERSONAL_DOMAIN}
 
