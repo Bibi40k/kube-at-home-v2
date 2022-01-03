@@ -96,10 +96,9 @@ git commit -m "updates"
 git push
 
 printf "\n * Install Flux\n"
-if kubectl --kubeconfig=./provision/kubeconfig apply --kustomize=./cluster/base/flux-system; then
-    printf "\n * Install Flux... continue\n"
-    kubectl --kubeconfig=./provision/kubeconfig apply --kustomize=./cluster/base/flux-system
-fi
+kubectl --kubeconfig=./provision/kubeconfig apply --kustomize=./cluster/base/flux-system
+printf "\n * Install Flux... this needs to be run twice\n"
+kubectl --kubeconfig=./provision/kubeconfig apply --kustomize=./cluster/base/flux-system
 
 printf "\n * Verify Flux components are running in the cluster\n"
 kubectl --kubeconfig=./provision/kubeconfig get pods -n flux-system
