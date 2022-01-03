@@ -90,14 +90,18 @@ printf "\n * Verify cluster secrets defined in *.sops.yaml\n"
 echo ./cluster/base/cluster-secrets.sops.yaml
 echo ./cluster/base/cluster-settings.sops.yaml
 
+printf "\n * Push you changes to git\n"
+git add -A
+git commit -m "updates"
+git push
+
 printf "\n * Install Flux\n"
 if kubectl --kubeconfig=./provision/kubeconfig apply --kustomize=./cluster/base/flux-system; then
-    printf "\n * Install Flux... continue"
+    printf "\n * Install Flux... continue\n"
     kubectl --kubeconfig=./provision/kubeconfig apply --kustomize=./cluster/base/flux-system
 fi
 
 printf "\n * Verify Flux components are running in the cluster\n"
 kubectl --kubeconfig=./provision/kubeconfig get pods -n flux-system
 
-
-printf "\n * k3s completed, proceed to step 6\n\n"
+printf "\n * Flux installed, proceed to step 6\n\n"
