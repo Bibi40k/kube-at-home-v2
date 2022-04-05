@@ -17,7 +17,7 @@ jobs:
       - name: actions-template-sync
         uses: AndreasAugustin/actions-template-sync@v0.3.0-draft
         with:
-          github_token: ${{ secrets.REPO_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           source_repo_path: k8s-at-home/template-cluster-k3s
           upstream_branch: main # defaults to main
           pr_labels: template-sync # defaults to chore,template-sync
