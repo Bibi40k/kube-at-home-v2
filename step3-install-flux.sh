@@ -71,18 +71,19 @@ kubectl --kubeconfig=./provision/kubeconfig get pods -n flux-system
 
 **Congratulations** you have a Kubernetes cluster managed by Flux, your Git repository is driving the state of your cluster.
 '
+KUBECONFIG="$HOME/.kube/config"
 
 printf "\n * Verify Flux can be installed\n"
-flux --kubeconfig=./provision/kubeconfig check --pre
+flux --kubeconfig=$KUBECONFIG check --pre
 
 printf "\n * Pre-create the flux-system namespace\n"
-kubectl --kubeconfig=./provision/kubeconfig \
+kubectl --kubeconfig=$KUBECONFIG \
     create namespace flux-system --dry-run=client -o yaml | \
-    kubectl --kubeconfig=./provision/kubeconfig apply -f -
+    kubectl --kubeconfig=$KUBECONFIG apply -f -
 
 printf "\n * Add the Age key in-order for Flux to decrypt SOPS secrets\n"
 cat ~/.config/sops/age/keys.txt |
-    kubectl --kubeconfig=./provision/kubeconfig \
+    kubectl --kubeconfig=$KUBECONFIG \
     -n flux-system create secret generic sops-age \
     --from-file=age.agekey=/dev/stdin
 
@@ -97,12 +98,12 @@ git commit -m "updates"
 git push
 
 printf "\n * Install Flux\n"
-kubectl --kubeconfig=./provision/kubeconfig apply --kustomize=./cluster/base/flux-system
+kubectl --kubeconfig=$KUBECONFIG apply --kustomize=./cluster/base/flux-system
 printf "\n * Install Flux... this needs to be run twice\n"
-kubectl --kubeconfig=./provision/kubeconfig apply --kustomize=./cluster/base/flux-system
+kubectl --kubeconfig=$KUBECONFIG apply --kustomize=./cluster/base/flux-system
 
 printf "\n * Verify Flux components are running in the cluster\n"
-kubectl --kubeconfig=./provision/kubeconfig get pods -n flux-system
+kubectl --kubeconfig=$KUBECONFIG get pods -n flux-system
 
 printf "\n * Flux installed\n"
 
