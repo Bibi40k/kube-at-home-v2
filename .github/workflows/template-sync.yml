@@ -6,9 +6,20 @@ on:
   - cron:  "0 0 1 * *"
   # manual trigger
   workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
 jobs:
   repo-sync:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
 
     steps:
       # To use this repository's private action, you must check out the repository
