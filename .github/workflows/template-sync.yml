@@ -1,34 +1,19 @@
-# File: .github/workflows/template-sync.yml
+---
+name: 'Template Sync'
 
 on:
-  # cronjob trigger
   schedule:
-  - cron:  "0 0 1 * *"
-  # manual trigger
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pull-requests: write
-  issues: write
+    - cron: '0 8 * * *'
 
 jobs:
-  repo-sync:
+  sync:
+
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: read
-      pull-requests: write
-      issues: write
-
     steps:
-      # To use this repository's private action, you must check out the repository
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: actions-template-sync
-        uses: AndreasAugustin/actions-template-sync@v0.3.0-draft
+      - uses: actions/checkout@v2
+      - uses: narrowspark/template-sync-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          source_repo_path: k8s-at-home/template-cluster-k3s
-          upstream_branch: main # defaults to main
-          pr_labels: template-sync # defaults to chore,template-sync
+          template_repository: k8s-at-home/template-cluster-k3s
+          ref: refs/heads/master
