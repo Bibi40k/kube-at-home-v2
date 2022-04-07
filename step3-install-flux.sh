@@ -81,6 +81,8 @@ kubectl --kubeconfig=$KUBECONFIG \
     create namespace flux-system --dry-run=client -o yaml | \
     kubectl --kubeconfig=$KUBECONFIG apply -f -
 
+# Delete secret if already exists
+kubectl --kubeconfig=$KUBECONFIG -n flux-system delete secret sops-age
 printf "\n * Add the Age key in-order for Flux to decrypt SOPS secrets\n"
 cat ~/.config/sops/age/keys.txt |
     kubectl --kubeconfig=$KUBECONFIG \
